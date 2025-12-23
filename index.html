@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Anime</title>
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <!-- hls.js library for HLS playback -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.4.10/dist/hls.min.js"></script>
+  
+  <!-- Apple Touch Icon -->
+  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/732/732228.png">
+  
+  <!-- Android Theme Color -->
+  <meta name="theme-color" content="#e50914">
+  
+  <!-- iOS Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="#" class="logo">
+        <i class="fas fa-infinity"></i>
+        <span class="logo-text">Infinx <span class="logo-pro">Anime</span></span>
+      </a>
+      
+      <!-- Mobile Menu Button -->
+      <button class="mobile-menu-btn" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <nav class="header-nav">
+        <a href="#"><i class="fas fa-home"></i> <span class="nav-text">Home</span></a>
+        <a href="#"><i class="fas fa-fire"></i> <span class="nav-text">Trending</span></a>
+        <a href="#"><i class="fas fa-bookmark"></i> <span class="nav-text">Library</span></a>
+        <div class="search-box">
+          <input type="text" placeholder="Search anime..." aria-label="Search anime">
+          <i class="fas fa-search"></i>
+        </div>
+       <!-- <div class="user-menu">
+          <i class="fas fa-user-circle"></i>
+        </div>-->
+      </nav>
+    </div>
+  </header>
+  
+  <!-- Mobile Navigation Menu -->
+  <div class="mobile-nav-overlay"></div>
+  <div class="mobile-nav">
+    <div class="mobile-nav-header">
+      <h3>Menu</h3>
+      <button class="mobile-nav-close" aria-label="Close menu">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="mobile-nav-items">
+      <a href="#"><i class="fas fa-home"></i> Home</a>
+      <a href="#"><i class="fas fa-fire"></i> Trending</a>
+      <a href="#"><i class="fas fa-bookmark"></i> Library</a>
+      <a href="#"><i class="fas fa-history"></i> History</a>
+      <a href="#"><i class="fas fa-download"></i> Downloads</a>
+      <a href="#"><i class="fas fa-cog"></i> Settings</a>
+    </div>
+  </div>
+  
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Main Video Player -->
+    <div class="main-video-container">
+      <div class="video-player-wrapper">
+        <!-- Video Player -->
+        <div class="video-player">
+          <!-- Video element WITHOUT native controls -->
+          <video id="main-video" playsinline webkit-playsinline></video>
+          
+          <!-- Custom Video Controls -->
+          <div class="custom-controls">
+            <div class="progress-bar">
+              <div class="progress"></div>
+              <div class="progress-hover-time">0:00</div>
+            </div>
+            <div class="control-buttons">
+              <!-- Previous Button -->
+              <button class="control-btn prev-btn" aria-label="Previous episode">
+                <i class="fas fa-step-backward"></i>
+              </button>
+              
+              <button class="control-btn play-pause" aria-label="Play/Pause">
+                <i class="fas fa-play"></i>
+              </button>
+              
+              <!-- Next Button -->
+              <button class="control-btn next-btn" aria-label="Next episode">
+                <i class="fas fa-step-forward"></i>
+              </button>
+              
+              <div class="time-display">
+                <span class="current-time">0:00</span> / <span class="duration">0:00</span>
+              </div>
+              
+              <button class="control-btn volume-btn" aria-label="Volume">
+                <i class="fas fa-volume-up"></i>
+              </button>
+              
+              <div class="volume-slider">
+                <input type="range" min="0" max="100" value="100" class="volume-range" aria-label="Volume slider">
+              </div>
+              
+              <!-- Auto Next Checkbox -->
+              <div class="auto-next-container">
+                <input type="checkbox" id="auto-next" class="auto-next-checkbox" checked>
+                <label for="auto-next" class="auto-next-label" title="Auto play next episode">
+                  <i class="fas fa-forward"></i>
+                </label>
+              </div>
+              
+              <div class="settings-menu">
+                <button class="control-btn settings-btn" aria-label="Settings">
+                  <i class="fas fa-cog"></i>
+                </button>
+                <div class="settings-dropdown">
+                  <div class="settings-section">
+                    <div class="settings-title">Playback Speed</div>
+                    <div class="speed-options">
+                      <div class="speed-option" data-speed="0.5">0.5x</div>
+                      <div class="speed-option" data-speed="0.75">0.75x</div>
+                      <div class="speed-option active" data-speed="1">Normal</div>
+                      <div class="speed-option" data-speed="1.25">1.25x</div>
+                      <div class="speed-option" data-speed="1.5">1.5x</div>
+                      <div class="speed-option" data-speed="2">2x</div>
+                    </div>
+                  </div>
+                  <div class="settings-section">
+                    <div class="settings-title">Quality</div>
+                    <div class="quality-options">
+                      <div class="quality-option active" data-quality="auto">Auto</div>
+                      <div class="quality-option" data-quality="1080">1080p</div>
+                      <div class="quality-option" data-quality="720">720p</div>
+                      <div class="quality-option" data-quality="480">480p</div>
+                      <div class="quality-option" data-quality="360">360p</div>
+                    </div>
+                  </div>
+                  <div class="settings-section">
+                    <div class="settings-title">Audio Language</div>
+                    <div class="audio-options" id="audio-track-list">
+                      <!-- Audio tracks will be populated by JavaScript -->
+                      <div class="audio-option active" data-audio-index="0">
+                        <i class="fas fa-volume-up"></i> Japanese
+                      </div>
+                      <div class="audio-option" data-audio-index="1">
+                        <i class="fas fa-volume-up"></i> English
+                      </div>
+                    </div>
+                  </div>
+                  <div class="settings-section">
+                    <div class="settings-title">Subtitles</div>
+                    <div class="subtitle-options">
+                      <div class="subtitle-option active" data-subtitle="off">Off</div>
+                      <div class="subtitle-option" data-subtitle="english">English</div>
+                      <div class="subtitle-option" data-subtitle="spanish">Español</div>
+                      <div class="subtitle-option" data-subtitle="french">Français</div>
+                    </div>
+                  </div>
+                 <!-- <div class="settings-section">
+                    <div class="settings-title">Keyboard Shortcuts</div>
+                    <div class="shortcut-list">
+                      <div class="shortcut-item">
+                        <span class="shortcut-key">Space</span>
+                        <span class="shortcut-desc">Play/Pause</span>
+                      </div>
+                      <div class="shortcut-item">
+                        <span class="shortcut-key">← →</span>
+                        <span class="shortcut-desc">Seek 10s</span>
+                      </div>
+                      <div class="shortcut-item">
+                        <span class="shortcut-key">F</span>
+                        <span class="shortcut-desc">Fullscreen</span>
+                      </div>
+                      <div class="shortcut-item">
+                        <span class="shortcut-key">M</span>
+                        <span class="shortcut-desc">Mute</span>
+                      </div>
+                    </div>
+                  </div>-->
+                </div>
+              </div>
+              
+              <button class="control-btn fullscreen-btn" aria-label="Fullscreen">
+                <i class="fas fa-expand"></i>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Video Overlay Information -->
+          <div class="video-overlay">
+            <div class="video-info">
+              <h2 class="video-title" id="current-video-title">One Punch Man S01E01</h2>
+              <div class="video-meta">
+                <span class="episode"><i class="fas fa-play-circle"></i> Episode 1</span>
+                <span class="views"><i class="fas fa-eye"></i> 2.4M views</span>
+                <span class="current-audio-display"><i class="fas fa-volume-up"></i> Japanese</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Mobile Touch Controls -->
+          <div class="mobile-touch-controls">
+            <div class="touch-left" data-action="rewind"></div>
+            <div class="touch-center" data-action="play-pause"></div>
+            <div class="touch-right" data-action="forward"></div>
+          </div>
+        </div>
+        
+        <!-- Video Settings Bar -->
+        <div class="video-settings-bar">
+          <div class="settings-left">
+            <div class="quality-selector">
+              <button class="settings-btn quality-btn">
+                <i class="fas fa-hd"></i> <span class="btn-text">Quality</span> <span class="current-quality">Auto</span> <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="quality-dropdown" id="quality-dropdown">
+                <div class="quality-option active" data-quality="auto">Auto</div>
+                <!-- Quality options will be populated by JavaScript -->
+              </div>
+            </div>
+            
+            <div class="audio-selector">
+              <button class="settings-btn audio-btn">
+                <i class="fas fa-volume-up"></i> <span class="btn-text">Audio</span> <span class="current-audio">Japanese</span> <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="audio-dropdown" id="audio-dropdown">
+                <!-- Audio options will be populated by JavaScript -->
+                <div class="audio-option active" data-audio-index="0">
+                  <i class="fas fa-volume-up"></i> Japanese
+                </div>
+              </div>
+            </div>
+            
+            <div class="playback-speed-selector">
+              <button class="settings-btn speed-btn">
+                <i class="fas fa-tachometer-alt"></i> <span class="btn-text">Speed</span> <span class="current-speed">1x</span> <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="speed-dropdown">
+                <div class="speed-option" data-speed="0.5">0.5x</div>
+                <div class="speed-option" data-speed="0.75">0.75x</div>
+                <div class="speed-option active" data-speed="1">Normal</div>
+                <div class="speed-option" data-speed="1.25">1.25x</div>
+                <div class="speed-option" data-speed="1.5">1.5x</div>
+                <div class="speed-option" data-speed="2">2x</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="settings-right">
+            <button class="action-btn download-btn">
+              <i class="fas fa-download"></i> <span class="btn-text">Download</span>
+            </button>
+            <button class="action-btn share-btn">
+              <i class="fas fa-share-alt"></i> <span class="btn-text">Share</span>
+            </button>
+            <button class="action-btn favorite-btn">
+              <i class="far fa-heart"></i> <span class="btn-text">Favorite</span>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Video Description -->
+        <div class="video-description">
+          <h3 class="description-title">Description</h3>
+          <p class="description-text">The story of Saitama, a hero who can defeat any opponent with a single punch. After training for three years, he became so strong that he now finds himself bored with his overwhelming power.</p>
+          
+          <div class="video-tags">
+            <span class="tag">Action</span>
+            <span class="tag">Comedy</span>
+            <span class="tag">Superhero</span>
+            <span class="tag">Parody</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Video Playlist -->
+    <div class="video-playlist">
+      <div class="playlist-header">
+        <h3><i class="fas fa-list-ol"></i> Playlist <span class="episode-count">(6 episodes)</span></h3>
+        <div class="playlist-actions">
+          <button class="playlist-btn shuffle-btn" title="Shuffle">
+            <i class="fas fa-random"></i>
+          </button>
+          <button class="playlist-btn autoplay-btn active" title="Autoplay">
+            <i class="fas fa-play-circle"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div class="playlist-items" id="playlist-items-container">
+        <!-- Playlist items will be populated by JavaScript -->
+      </div>
+      
+      <!-- Playlist Footer -->
+      <div class="playlist-footer">
+        <button class="load-more-btn">
+          <i class="fas fa-chevron-down"></i> Load More Episodes
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Keyboard Shortcuts Help -->
+  <div class="shortcuts-help">
+    <div class="shortcuts-content">
+      <h3><i class="fas fa-keyboard"></i> Keyboard Shortcuts</h3>
+      <div class="shortcuts-grid">
+        <div class="shortcut-help-item">
+          <span class="shortcut-key">Space / K</span>
+          <span class="shortcut-action">Play/Pause</span>
+        </div>
+        <div class="shortcut-help-item">
+          <span class="shortcut-key">F</span>
+          <span class="shortcut-action">Fullscreen</span>
+        </div>
+        <div class="shortcut-help-item">
+          <span class="shortcut-key">M</span>
+          <span class="shortcut-action">Mute</span>
+        </div>
+        <div class="shortcut-help-item">
+          <span class="shortcut-key">← →</span>
+          <span class="shortcut-action">Seek ±10s</span>
+        </div>
+        <div class="shortcut-help-item">
+          <span class="shortcut-key">↑ ↓</span>
+          <span class="shortcut-action">Volume ±10%</span>
+        </div>
+        <div class="shortcut-help-item">
+          <span class="shortcut-key">N</span>
+          <span class="shortcut-action">Next Episode</span>
+        </div>
+        <div class="shortcut-help-item">
+          <span class="shortcut-key">P</span>
+          <span class="shortcut-action">Previous Episode</span>
+        </div>
+        <div class="shortcut-help-item">
+          <span class="shortcut-key">0-9</span>
+          <span class="shortcut-action">Jump to %</span>
+        </div>
+      </div>
+      <button class="close-shortcuts-btn">
+        <i class="fas fa-times"></i> Close
+      </button>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4><i class="fas fa-infinity"></i> AnimePro</h4>
+        <p>The ultimate destination for anime lovers. Stream the latest episodes in high quality with multiple audio and subtitle options.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <a href="#">Home</a>
+        <a href="#">Trending</a>
+        <a href="#">Genres</a>
+        <a href="#">Schedule</a>
+      </div>
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <a href="#">Terms of Service</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Cookie Policy</a>
+        <a href="#">DMCA</a>
+      </div>
+      <div class="footer-section">
+        <h4>Connect</h4>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-discord"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-reddit"></i></a>
+          <a href="#"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2023 AnimePro. All rights reserved. This is a fan-made demonstration site.</p>
+      <button class="keyboard-shortcuts-btn">
+        <i class="fas fa-keyboard"></i> Keyboard Shortcuts
+      </button>
+    </div>
+  </footer>
+  
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
